@@ -1,0 +1,5 @@
+name: elementareteilchen/maps2-bayernatlas
+label: Maps2 - BayernAtlas
+
+dependencies:
+  - jweiland/maps2-openstreetmap

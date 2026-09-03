@@ -1,0 +1,8 @@
+{
+  "name": "maps2-bayernatlas-assets",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "test": "node --test Tests/JavaScript/Maps2Adapter.test.mjs"
+  }
+}

@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xliff version="1.2">
+    <file source-language="en" datatype="plaintext" original="messages" product-name="maps2_bayernatlas">
+        <body>
+            <trans-unit id="consent.title">
+                <source>BayernAtlas map</source>
+            </trans-unit>
+            <trans-unit id="consent.description">
+                <source>Loading this map connects your browser to the Bavarian State Office for Digitization, Broadband and Surveying (LDBV). Your IP address and technical request data are transmitted to the provider.</source>
+            </trans-unit>
+            <trans-unit id="consent.shared">
+                <source>Activation uses this website's shared maps2 permission for external map providers. Your choice is stored according to the website's maps2 settings.</source>
+            </trans-unit>
+            <trans-unit id="consent.privacy">
+                <source>LDBV privacy information</source>
+            </trans-unit>
+            <trans-unit id="consent.activate">
+                <source>Allow external maps and load BayernAtlas</source>
+            </trans-unit>
+            <trans-unit id="infoWindow.error">
+                <source>The information could not be loaded.</source>
+            </trans-unit>
+        </body>
+    </file>
+</xliff>

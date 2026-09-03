@@ -1,0 +1,35 @@
+<html lang="en"
+      xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
+      xmlns:maps2="http://typo3.org/ns/JWeiland/Maps2/ViewHelpers"
+      xmlns:bafv="http://typo3.org/ns/ElementareTeilchen/BayernAtlasFluid/ViewHelpers"
+      data-namespace-typo3-fluid="true">
+
+<!-- Only local styles: do not render either LoadAssets partial before consent. -->
+<f:asset.css identifier="maps2-bayernatlas-consent"
+             href="EXT:maps2_bayernatlas/Resources/Public/Css/Consent.css"
+             inline="0"/>
+
+<f:variable name="height"
+            value="{f:if(condition: environment.settings.mapHeight, then: environment.settings.mapHeight, else: configuration.height)}"/>
+<f:variable name="mapHeight" value="{bafv:normalizeDimension(value: height, fallback: '560px')}"/>
+<f:variable name="mapWidth" value="{bafv:normalizeDimension(value: environment.settings.mapWidth, fallback: '100%')}"/>
+
+<div id="maps2-{contentElementUid}"
+     class="maps2-bayernatlas-consent"
+     style="width: {mapWidth}; height: {mapHeight};">
+    <div>
+        <h3><f:translate key="LLL:EXT:maps2_bayernatlas/Resources/Private/Language/locallang.xlf:consent.title"/></h3>
+        <p><f:translate key="LLL:EXT:maps2_bayernatlas/Resources/Private/Language/locallang.xlf:consent.description"/></p>
+        <p><f:translate key="LLL:EXT:maps2_bayernatlas/Resources/Private/Language/locallang.xlf:consent.shared"/></p>
+        <p>
+            <a href="https://geoportal.bayern.de/geoportalbayern/seiten/datenschutz" rel="noreferrer">
+                <f:translate key="LLL:EXT:maps2_bayernatlas/Resources/Private/Language/locallang.xlf:consent.privacy"/>
+            </a>
+        </p>
+        <a class="maps2-bayernatlas-consent__activate"
+           href="{maps2:requestUriForOverlay(ttContentUid: contentElementUid)}">
+            <f:translate key="LLL:EXT:maps2_bayernatlas/Resources/Private/Language/locallang.xlf:consent.activate"/>
+        </a>
+    </div>
+</div>
+</html>

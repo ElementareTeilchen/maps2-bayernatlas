@@ -1,0 +1,27 @@
+.maps2-bayernatlas-consent {
+  box-sizing: border-box;
+  display: grid;
+  place-items: center;
+  min-height: 20rem;
+  padding: 1.5rem;
+  overflow: auto;
+  background: #eef1ed;
+  color: #173f2d;
+}
+
+.maps2-bayernatlas-consent > div {
+  max-width: 42rem;
+}
+
+.maps2-bayernatlas-consent__activate {
+  display: inline-block;
+  padding: 0.65rem 1rem;
+  border-radius: 0.25rem;
+  background: #173f2d;
+  color: #fff;
+}
+
+.maps2-bayernatlas-consent a:focus-visible {
+  outline: 3px solid currentColor;
+  outline-offset: 3px;
+}

@@ -1,0 +1,22 @@
+plugin.tx_maps2 {
+  view {
+    templateRootPaths.90 = EXT:maps2_bayernatlas/Resources/Private/Templates/
+    partialRootPaths.90 = EXT:maps2_bayernatlas/Resources/Private/Partials/
+    layoutRootPaths.90 = EXT:maps2_bayernatlas/Resources/Private/Layouts/
+  }
+
+  settings {
+    mapRenderer = {$maps2BayernAtlas.defaultRenderer}
+    bayernAtlasBaseLayer = {$maps2BayernAtlas.baseLayer}
+    bayernAtlasShowLabels = {$maps2BayernAtlas.showLabels}
+    bayernAtlasShowLayerControl = {$maps2BayernAtlas.showLayerControl}
+
+    bayernAtlas {
+      baseLayer = {$maps2BayernAtlas.baseLayer}
+      height = {$maps2BayernAtlas.height}
+      zoom = {$maps2BayernAtlas.zoom}
+      showLabels = {$maps2BayernAtlas.showLabels}
+      showLayerControl = {$maps2BayernAtlas.showLayerControl}
+    }
+  }
+}

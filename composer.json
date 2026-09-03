@@ -1,0 +1,57 @@
+{
+  "name": "elementareteilchen/maps2-bayernatlas",
+  "description": "Maps2 BayernAtlas - Frontend renderer for jweiland/maps2",
+  "type": "typo3-cms-extension",
+  "license": "GPL-2.0-or-later",
+  "homepage": "https://github.com/ElementareTeilchen/maps2-bayernatlas",
+  "support": {
+    "issues": "https://github.com/ElementareTeilchen/maps2-bayernatlas/issues",
+    "source": "https://github.com/ElementareTeilchen/maps2-bayernatlas"
+  },
+  "keywords": [
+    "TYPO3",
+    "maps2",
+    "BayernAtlas",
+    "map"
+  ],
+  "require": {
+    "php": "^8.2",
+    "elementareteilchen/bayernatlas-fluid": "^0.1",
+    "jweiland/maps2": "^12.2 || ^13.1",
+    "typo3/cms-core": "^13.4 || ^14.3",
+    "typo3/cms-extbase": "^13.4 || ^14.3"
+  },
+  "autoload": {
+    "psr-4": {
+      "ElementareTeilchen\\Maps2BayernAtlas\\": "Classes/"
+    }
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "ElementareTeilchen\\Maps2BayernAtlas\\Tests\\": "Tests/"
+    }
+  },
+  "require-dev": {
+    "phpunit/phpunit": "^11.5 || ^12.5"
+  },
+  "scripts": {
+    "test:php": "phpunit"
+  },
+  "repositories": [
+    {
+      "type": "vcs",
+      "url": "https://github.com/ElementareTeilchen/bayernatlas-fluid"
+    }
+  ],
+  "config": {
+    "allow-plugins": {
+      "typo3/class-alias-loader": true,
+      "typo3/cms-composer-installers": true
+    }
+  },
+  "extra": {
+    "typo3/cms": {
+      "extension-key": "maps2_bayernatlas"
+    }
+  }
+}

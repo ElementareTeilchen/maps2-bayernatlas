@@ -1,0 +1,39 @@
+settings:
+  maps2BayernAtlas.defaultRenderer:
+    label: Default map output
+    description: Frontend renderer used when a maps2 content element uses the site default.
+    type: string
+    enum:
+      bayernatlas: BayernAtlas
+      maps2: Standard maps2
+    default: bayernatlas
+
+  maps2BayernAtlas.baseLayer:
+    label: BayernAtlas base layer
+    description: GeoResource identifier used as the BayernAtlas base map.
+    type: string
+    default: GEORESOURCE_WEB
+
+  maps2BayernAtlas.height:
+    label: Map height
+    description: CSS height used when maps2 has no mapHeight setting.
+    type: string
+    default: 560px
+
+  maps2BayernAtlas.zoom:
+    label: Initial zoom
+    description: Fallback zoom level when maps2 has no zoom setting.
+    type: int
+    default: 12
+
+  maps2BayernAtlas.showLabels:
+    label: Show labels
+    description: Pass maps2 titles to BayernAtlas and display labels for geometry layers.
+    type: bool
+    default: true
+
+  maps2BayernAtlas.showLayerControl:
+    label: Show layer control
+    description: Allow visitors to switch the base map and toggle maps2 records by sys_category.
+    type: bool
+    default: false

@@ -1,0 +1,12 @@
+/composer.lock
+/Build/
+/public/
+/var/
+/_dependencies/
+/node_modules/
+/package-lock.json
+/.phpunit.cache/
+/vendor/
+/.setup-backup.*/
+
+.DS_Store

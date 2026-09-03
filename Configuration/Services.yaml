@@ -1,0 +1,8 @@
+services:
+  _defaults:
+    autowire: true
+    autoconfigure: true
+    public: false
+
+  ElementareTeilchen\Maps2BayernAtlas\:
+    resource: '../Classes/*'

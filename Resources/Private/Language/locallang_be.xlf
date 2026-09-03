@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xliff version="1.2">
+    <file source-language="en" datatype="plaintext" original="messages" date="2026-09-01T00:00:00Z" product-name="maps2_bayernatlas">
+        <body>
+            <trans-unit id="flexform.mapRenderer">
+                <source>Map output</source>
+            </trans-unit>
+            <trans-unit id="flexform.mapRenderer.description">
+                <source>Select the frontend renderer. The provider for the backend map and address search remains unchanged.</source>
+            </trans-unit>
+            <trans-unit id="flexform.mapRenderer.siteDefault">
+                <source>Site default</source>
+            </trans-unit>
+            <trans-unit id="flexform.mapRenderer.maps2">
+                <source>Standard maps2 (Google Maps or OpenStreetMap)</source>
+            </trans-unit>
+            <trans-unit id="flexform.mapRenderer.bayernAtlas">
+                <source>BayernAtlas</source>
+            </trans-unit>
+            <trans-unit id="flexform.sheetBayernAtlas">
+                <source>BayernAtlas</source>
+            </trans-unit>
+            <trans-unit id="flexform.baseLayer">
+                <source>Base layer</source>
+            </trans-unit>
+            <trans-unit id="flexform.baseLayer.description">
+                <source>Optional GeoResource identifier. Leave empty to use the site setting.</source>
+            </trans-unit>
+            <trans-unit id="flexform.showLabels">
+                <source>Labels</source>
+            </trans-unit>
+            <trans-unit id="flexform.siteDefault">
+                <source>Site default</source>
+            </trans-unit>
+            <trans-unit id="flexform.showLabels.show">
+                <source>Show</source>
+            </trans-unit>
+            <trans-unit id="flexform.showLabels.hide">
+                <source>Hide</source>
+            </trans-unit>
+            <trans-unit id="flexform.showLayerControl">
+                <source>Layer control</source>
+            </trans-unit>
+            <trans-unit id="flexform.showLayerControl.description">
+                <source>Allow visitors to switch the base map and toggle maps2 records by category.</source>
+            </trans-unit>
+        </body>
+    </file>
+</xliff>

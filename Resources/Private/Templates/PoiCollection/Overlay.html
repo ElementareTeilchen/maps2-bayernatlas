@@ -1,0 +1,18 @@
+<html lang="en"
+      xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
+      data-namespace-typo3-fluid="true">
+
+<f:flashMessages/>
+
+<!-- Keep the upstream uncached Overlay action and its shared consent mechanism. -->
+<f:if condition="{environment.settings.mapRenderer} == 'maps2'">
+    <f:then>
+        <f:render partial="Maps2/Overlay"
+                  arguments="{mapProvider: environment.settings.mapProvider, ttContentUid: data.uid}"/>
+    </f:then>
+    <f:else>
+        <f:render partial="BayernAtlas/Consent"
+                  arguments="{contentElementUid: data.uid, environment: environment, configuration: environment.settings.bayernAtlas}"/>
+    </f:else>
+</f:if>
+</html>

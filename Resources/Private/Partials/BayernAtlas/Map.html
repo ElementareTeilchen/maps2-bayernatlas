@@ -1,0 +1,34 @@
+<html lang="en"
+      xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
+      xmlns:baf="http://typo3.org/ns/ElementareTeilchen/BayernAtlasFluid/Components/ComponentCollection"
+      xmlns:maps2="http://typo3.org/ns/JWeiland/Maps2/ViewHelpers"
+      xmlns:maps2ba="http://typo3.org/ns/ElementareTeilchen/Maps2BayernAtlas/ViewHelpers"
+      data-namespace-typo3-fluid="true">
+
+<!-- Guard the component call, including its asset registration, with maps2's policy. -->
+<f:if condition="{maps2:isRequestToMapProviderAllowed()}">
+    <f:then>
+        <f:variable name="mapData"
+                    value="{maps2ba:mapData(
+                        poiCollections: poiCollections,
+                        environment: environment,
+                        configuration: configuration
+                    )}"/>
+
+        <f:render partial="BayernAtlas/LoadAssets"/>
+
+        <div class="maps2-bayernatlas-adapter"
+             data-ajax-url="{environment.ajaxUrl}"
+             data-info-window="{infoWindow}"
+             data-error-message="{f:translate(key: 'LLL:EXT:maps2_bayernatlas/Resources/Private/Language/locallang.xlf:infoWindow.error')}">
+            <baf:map id="maps2-{contentElementUid}"
+                     items="{mapData.items}"
+                     configuration="{mapData.configuration}"/>
+        </div>
+    </f:then>
+    <f:else>
+        <f:render partial="BayernAtlas/Consent"
+                  arguments="{contentElementUid: contentElementUid, environment: environment, configuration: configuration}"/>
+    </f:else>
+</f:if>
+</html>

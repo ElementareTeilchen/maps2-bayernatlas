@@ -1,0 +1,18 @@
+<html lang="en"
+      xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
+      data-namespace-typo3-fluid="true">
+
+<f:if condition="{environment.settings.mapRenderer} == 'maps2'">
+    <f:then>
+        <div class="tx-maps2">
+            <f:render partial="LoadAssets"/>
+            <f:render section="main"/>
+        </div>
+    </f:then>
+    <f:else>
+        <div class="tx-maps2 tx-maps2-bayernatlas">
+            <f:render section="main"/>
+        </div>
+    </f:else>
+</f:if>
+</html>

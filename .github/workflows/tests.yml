@@ -1,0 +1,70 @@
+name: Tests
+
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  php:
+    runs-on: ubuntu-latest
+    env:
+      # A package checkout has no complete TYPO3 site to publish assets for.
+      TYPO3_SKIP_ASSET_PUBLISH: '1'
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - php: '8.2'
+            typo3: '^13.4'
+            maps2: '^12.2'
+          - php: '8.4'
+            typo3: '^13.4'
+            maps2: '^12.2'
+          - php: '8.2'
+            typo3: '^14.3'
+            maps2: '^13.1'
+          - php: '8.4'
+            typo3: '^14.3'
+            maps2: '^13.1'
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+        with:
+          repository: ElementareTeilchen/bayernatlas-fluid
+          ref: v0.1.0
+          path: _dependencies/bayernatlas-fluid
+      - uses: shivammathur/setup-php@b604ade2a87db23f8871b7182e69ec5e75effb45 # v2
+        with:
+          php-version: ${{ matrix.php }}
+          extensions: intl, mbstring, pdo_sqlite
+          tools: composer:v2
+          coverage: none
+      - run: composer validate --strict
+      - name: Use the checked-out component without requiring Packagist
+        run: composer config repositories.component '{"type":"path","url":"_dependencies/bayernatlas-fluid","options":{"versions":{"elementareteilchen/bayernatlas-fluid":"0.1.0"}}}'
+      - run: composer update --with 'typo3/cms-core:${{ matrix.typo3 }}' --with 'jweiland/maps2:${{ matrix.maps2 }}' --prefer-dist --no-interaction --no-progress
+      - run: composer test:php
+      - name: PHP and XLIFF syntax
+        run: |
+          find Classes Tests -name '*.php' -print0 | xargs -0 -n1 php -l
+          php -r 'foreach (glob("Resources/Private/Language/*.xlf") as $file) { if (simplexml_load_file($file) === false) { exit(1); } }'
+
+  javascript:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4
+        with:
+          node-version: '24'
+      - run: npm test
+      - run: node --check Resources/Public/JavaScript/Maps2Adapter.js
+      - name: Verify distributable tests
+        run: |
+          mkdir /tmp/release-check
+          git archive HEAD | tar -x -C /tmp/release-check
+          cd /tmp/release-check
+          npm test

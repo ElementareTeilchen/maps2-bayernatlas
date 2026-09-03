@@ -1,0 +1,40 @@
+<html lang="en"
+      xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
+      xmlns:maps2="http://typo3.org/ns/JWeiland/Maps2/ViewHelpers"
+      data-namespace-typo3-fluid="true">
+
+<f:layout name="BayernAtlas"/>
+
+<f:section name="main">
+    <f:flashMessages/>
+    <f:flashMessages queueIdentifier="extbase.flashmessages.maps2"/>
+
+    <!-- TYPO3 13 with maps2 12.2 has no environment.isMapRenderable value. -->
+    <f:if condition="{poiCollections}">
+        <f:if condition="{environment.settings.mapRenderer} == 'maps2'">
+            <f:then>
+                <div id="maps2-{data.uid}"
+                     class="maps2"
+                     data-environment="{environment -> maps2:convertToJson()}"
+                     data-pois="{poiCollections -> maps2:convertToJson()}"></div>
+            </f:then>
+            <f:else>
+                <f:render partial="BayernAtlas/Map"
+                          arguments="{
+                              contentElementUid: data.uid,
+                              environment: environment,
+                              poiCollections: poiCollections,
+                              configuration: {
+                                  baseLayer: environment.settings.bayernAtlasBaseLayer,
+                                  height: environment.settings.bayernAtlas.height,
+                                  zoom: environment.settings.bayernAtlas.zoom,
+                                  showLabels: environment.settings.bayernAtlasShowLabels,
+                                  showLayerControl: environment.settings.bayernAtlasShowLayerControl
+                              },
+                              infoWindow: environment.settings.infoWindow
+                          }"/>
+            </f:else>
+        </f:if>
+    </f:if>
+</f:section>
+</html>
