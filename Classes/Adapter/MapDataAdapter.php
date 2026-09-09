@@ -72,6 +72,25 @@ final readonly class MapDataAdapter
             $item['color'] = $poiCollection->getStrokeColor();
         }
 
+        if ($type === 'point' && $poiCollection->getMarkerIcon() !== '') {
+            $references = $poiCollection->getMarkerIcons();
+            if ($references->count() === 0) {
+                $references = $poiCollection->getFirstFoundCategoryWithIcon()?->getMaps2MarkerIcons();
+            }
+            $references?->rewind();
+            $file = $references?->current()?->getOriginalResource();
+
+            $item['icon'] = [
+                'url' => $poiCollection->getMarkerIcon(),
+                'width' => $poiCollection->getMarkerIconWidth(),
+                'height' => $poiCollection->getMarkerIconHeight(),
+                'anchorX' => $poiCollection->getMarkerIconAnchorPosX(),
+                'anchorY' => $poiCollection->getMarkerIconAnchorPosY(),
+                'originalWidth' => (int)($file?->getProperty('width') ?? 0),
+                'originalHeight' => (int)($file?->getProperty('height') ?? 0),
+            ];
+        }
+
         if ($type === 'circle') {
             $item['radius'] = $poiCollection->getRadius();
         }
