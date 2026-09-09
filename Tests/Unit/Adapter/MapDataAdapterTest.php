@@ -114,7 +114,8 @@ final class MapDataAdapterTest extends TestCase
     public function inheritsCategoryIconsAndAllowsPoiOverrides(): void
     {
         $coreFile = $this->createStub(\TYPO3\CMS\Core\Resource\FileReference::class);
-        $coreFile->method('getPublicUrl')->willReturn('/icons/parking.png');
+        // maps2 12 resolves relative URLs against a host, which this unit test does not provide.
+        $coreFile->method('getPublicUrl')->willReturn('https://example.test/icons/parking.png');
         $coreFile->method('getProperty')->willReturnMap([['width', 60], ['height', 60]]);
         $reference = $this->createStub(\TYPO3\CMS\Extbase\Domain\Model\FileReference::class);
         $reference->method('getOriginalResource')->willReturn($coreFile);
@@ -129,7 +130,7 @@ final class MapDataAdapterTest extends TestCase
         $collection->addCategory($category);
         $adapter = new MapDataAdapter();
         $icon = $adapter->adapt([$collection], [], [])['items'][0]['icon'];
-        self::assertSame('/icons/parking.png', $icon['url']);
+        self::assertSame('https://example.test/icons/parking.png', $icon['url']);
         self::assertSame(30, $icon['width']);
         self::assertSame(60, $icon['originalWidth']);
 
