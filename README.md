@@ -189,6 +189,13 @@ Resources/Private/Extensions/Maps2BayernAtlas/Partials/BayernAtlas/Map.html
   own server. Icons it cannot fetch, e.g. on local or password-protected hosts,
   fall back to the standard marker. See the `bayernatlas-fluid` README for the
   required Content Security Policy source
+- an anchor coordinate of `0` is treated as unset and falls back to the image
+  centre. The maps2 Leaflet renderer uses `[0, 0]` as the top-left corner
+- icons without stored original dimensions use their native size instead of the
+  configured width and height. This can affect SVG files
+- when width and height imply different scale factors, BayernAtlas keeps the
+  image's aspect ratio and uses the smaller factor. Leaflet stretches the image
+  to the configured dimensions, so the effective anchor box also differs
 - the maps2 backend editing map remains OpenStreetMap
 - the initial viewport uses the configured zoom and the center of all records
 - marker clustering is unavailable until the BayernAtlas web component offers

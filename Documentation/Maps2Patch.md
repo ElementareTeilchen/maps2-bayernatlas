@@ -46,8 +46,7 @@ diff --git a/Configuration/Sets/Maps2/settings.definitions.yaml b/Configuration/
 diff --git a/Resources/Private/Partials/InfoWindowContent.fluid.html b/Resources/Private/Partials/InfoWindowContent.fluid.html
 --- a/Resources/Private/Partials/InfoWindowContent.fluid.html
 +++ b/Resources/Private/Partials/InfoWindowContent.fluid.html
-@@ -32,6 +32,6 @@
- 
+@@ -33,5 +33,5 @@
  <f:if condition="{poiCollection.info_window_content}">
      <br/>
 -    <div class="infoWindowContent">{poiCollection.info_window_content -> f:transform.html()}</div>
