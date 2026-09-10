@@ -40,6 +40,19 @@ Add the `Maps2 - BayernAtlas` Site Set to the site configuration. The set loads
 the maps2 OpenStreetMap set as a compatibility layer. Do not add the Google Maps
 set to the same site.
 
+### maps2 13.1 info windows
+
+On TYPO3 14, maps2 13.1.0 cannot render its standard info window. The default
+template path points to a file that maps2 does not ship, and the partial uses
+`f:transform.html`, which fails in the maps2 info-window middleware. This
+extension uses that info window, so apply the maps2 patch in the root project
+until a maps2 release contains the fix from
+[jweiland-net/maps2#378](https://github.com/jweiland-net/maps2/pull/378).
+maps2 12.2 on TYPO3 13 does not need it.
+
+See [maps2 info-window patch](Documentation/Maps2Patch.md) for the cause, the
+patch file and the Composer configuration.
+
 ## Configuration
 
 The Site Set defines these settings:
@@ -162,6 +175,8 @@ Resources/Private/Extensions/Maps2BayernAtlas/Partials/BayernAtlas/Map.html
 ## Supported maps2 records
 
 - point markers
+- maps2 marker icons from the POI or its first category with an icon, including
+  width, height and anchor
 - routes as line geometries
 - areas as polygon geometries
 - radii as generated circle polygons
@@ -170,13 +185,17 @@ Resources/Private/Extensions/Maps2BayernAtlas/Partials/BayernAtlas/Map.html
 
 ## Current limitations
 
-- custom maps2 marker images are not passed to the BayernAtlas component
+- marker icons must be publicly reachable: BayernAtlas fetches them through its
+  own server. Icons it cannot fetch, e.g. on local or password-protected hosts,
+  fall back to the standard marker. See the `bayernatlas-fluid` README for the
+  required Content Security Policy source
 - the maps2 backend editing map remains OpenStreetMap
 - the initial viewport uses the configured zoom and the center of all records
 - marker clustering is unavailable until the BayernAtlas web component offers
   a native clustering API
-- the current BayernAtlas API requires labels for selectable point markers;
-  with labels disabled, points do not open an info window
+- the current BayernAtlas API requires labels for selectable standard point
+  markers; with labels disabled, points without a marker icon do not open an
+  info window. Points with a marker icon stay selectable
 
 None of these limitations requires a change to the maps2 database schema.
 
