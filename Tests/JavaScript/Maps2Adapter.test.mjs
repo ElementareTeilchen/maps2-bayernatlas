@@ -21,13 +21,21 @@ test('package depends on maps2 and the generic BayernAtlas module', () => {
   assert.equal(existsSync(new URL('ext_emconf.php', packageDirectory)), false);
 });
 
-test('PHP workflow tests the minimum supported component release', () => {
+test('PHP workflow tests the minimum supported component release', (context) => {
   const packageDirectory = new URL('../../', import.meta.url);
+  const workflowFile = new URL('.github/workflows/tests.yml', packageDirectory);
+
+  if (!existsSync(workflowFile)) {
+    context.skip('Workflow files are intentionally excluded from release archives.');
+
+    return;
+  }
+
   const composer = JSON.parse(
     readFileSync(new URL('composer.json', packageDirectory), 'utf8'),
   );
   const workflow = readFileSync(
-    new URL('.github/workflows/tests.yml', packageDirectory),
+    workflowFile,
     'utf8',
   );
   const componentVersion = composer.require['elementareteilchen/bayernatlas-fluid'].slice(1);
