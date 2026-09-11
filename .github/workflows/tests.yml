@@ -35,7 +35,7 @@ jobs:
       - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
         with:
           repository: ElementareTeilchen/bayernatlas-fluid
-          ref: v0.1.0
+          ref: v0.1.1
           path: _dependencies/bayernatlas-fluid
       - uses: shivammathur/setup-php@b604ade2a87db23f8871b7182e69ec5e75effb45 # v2
         with:
@@ -45,7 +45,7 @@ jobs:
           coverage: none
       - run: composer validate --strict
       - name: Use the checked-out component without requiring Packagist
-        run: composer config repositories.component '{"type":"path","url":"_dependencies/bayernatlas-fluid","options":{"versions":{"elementareteilchen/bayernatlas-fluid":"0.1.0"}}}'
+        run: composer config repositories.component '{"type":"path","url":"_dependencies/bayernatlas-fluid","options":{"versions":{"elementareteilchen/bayernatlas-fluid":"0.1.1"}}}'
       - run: composer update --with 'typo3/cms-core:${{ matrix.typo3 }}' --with 'jweiland/maps2:${{ matrix.maps2 }}' --prefer-dist --no-interaction --no-progress
       - run: composer test:php
       - name: PHP and XLIFF syntax
