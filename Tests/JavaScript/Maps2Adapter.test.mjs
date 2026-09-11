@@ -15,7 +15,7 @@ test('package depends on maps2 and the generic BayernAtlas module', () => {
   );
 
   assert.equal(composer.name, 'elementareteilchen/maps2-bayernatlas');
-  assert.equal(composer.require['elementareteilchen/bayernatlas-fluid'], '^0.1');
+  assert.equal(composer.require['elementareteilchen/bayernatlas-fluid'], '^0.1.1');
   assert.equal(composer.require['jweiland/maps2'], '^12.2 || ^13.1');
   assert.equal(composer.require['typo3/cms-core'], '^13.4 || ^14.3');
   assert.equal(existsSync(new URL('ext_emconf.php', packageDirectory)), false);

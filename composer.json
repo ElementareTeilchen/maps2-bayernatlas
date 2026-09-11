@@ -16,7 +16,7 @@
   ],
   "require": {
     "php": "^8.2",
-    "elementareteilchen/bayernatlas-fluid": "^0.1",
+    "elementareteilchen/bayernatlas-fluid": "^0.1.1",
     "jweiland/maps2": "^12.2 || ^13.1",
     "typo3/cms-core": "^13.4 || ^14.3",
     "typo3/cms-extbase": "^13.4 || ^14.3"
