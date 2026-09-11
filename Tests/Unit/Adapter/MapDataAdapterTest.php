@@ -110,6 +110,35 @@ final class MapDataAdapterTest extends TestCase
         ], $result['configuration']);
     }
 
+    #[Test]
+    public function inheritsCategoryIconsAndAllowsPoiOverrides(): void
+    {
+        $coreFile = $this->createStub(\TYPO3\CMS\Core\Resource\FileReference::class);
+        // maps2 12 resolves relative URLs against a host, which this unit test does not provide.
+        $coreFile->method('getPublicUrl')->willReturn('https://example.test/icons/parking.png');
+        $coreFile->method('getProperty')->willReturnMap([['width', 60], ['height', 60]]);
+        $reference = $this->createStub(\TYPO3\CMS\Extbase\Domain\Model\FileReference::class);
+        $reference->method('getOriginalResource')->willReturn($coreFile);
+        $references = new \TYPO3\CMS\Extbase\Persistence\ObjectStorage();
+        $references->attach($reference);
+
+        $category = new TestCategory();
+        $category->setMaps2MarkerIcons($references);
+        $category->setMaps2MarkerIconWidth(30);
+        $category->setMaps2MarkerIconHeight(30);
+        $collection = $this->createCollection('Point');
+        $collection->addCategory($category);
+        $adapter = new MapDataAdapter();
+        $icon = $adapter->adapt([$collection], [], [])['items'][0]['icon'];
+        self::assertSame('https://example.test/icons/parking.png', $icon['url']);
+        self::assertSame(30, $icon['width']);
+        self::assertSame(60, $icon['originalWidth']);
+
+        $collection->setMarkerIcons($references);
+        $collection->setMarkerIconWidth(42);
+        self::assertSame(42, $adapter->adapt([$collection], [], [])['items'][0]['icon']['width']);
+    }
+
     private function createCollection(string $collectionType): TestPoiCollection
     {
         $collection = new TestPoiCollection();

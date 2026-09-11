@@ -7,6 +7,7 @@ namespace ElementareTeilchen\Maps2BayernAtlas\Tests\Unit\Consent;
 use ElementareTeilchen\Maps2BayernAtlas\Adapter\MapDataAdapter;
 use ElementareTeilchen\Maps2BayernAtlas\ViewHelpers\MapDataViewHelper;
 use JWeiland\Maps2\Configuration\ExtConf;
+use JWeiland\Maps2\Configuration\Environment;
 use JWeiland\Maps2\Helper\MapHelper;
 use JWeiland\Maps2\ViewHelpers\IsRequestToMapProviderAllowedViewHelper;
 use PHPUnit\Framework\Attributes\DataProvider;
@@ -41,6 +42,18 @@ final class RenderingTest extends TestCase
             self::assertStringContainsString('height: 300px;', $html);
             self::assertStringContainsString('mapProviderRequestsAllowedForMaps2', $html);
         }
+    }
+
+    public function testMapPartialAcceptsMaps2EnvironmentObject(): void
+    {
+        if (!class_exists(Environment::class)) {
+            self::markTestSkipped('The Environment object is provided by maps2 13.1.');
+        }
+
+        $html = $this->render(false, [], [], useEnvironmentObject: true);
+
+        self::assertStringContainsString('data-test-map="rendered"', $html);
+        self::assertArrayHasKey('maps2-bayernatlas-adapter', AssetViewHelper::$assets);
     }
 
     public static function permissionCases(): iterable
@@ -99,7 +112,7 @@ final class RenderingTest extends TestCase
         self::assertSame(['maps2-bayernatlas-consent'], array_keys(AssetViewHelper::$assets));
     }
 
-    private function render(bool $required, array $cookies, array $query, string $template = 'Map', string $renderer = 'bayernatlas'): string
+    private function render(bool $required, array $cookies, array $query, string $template = 'Map', string $renderer = 'bayernatlas', bool $useEnvironmentObject = false): string
     {
         $oldCookies = $_COOKIE;
         $oldRequest = $GLOBALS['TYPO3_REQUEST'] ?? null;
@@ -137,7 +150,9 @@ final class RenderingTest extends TestCase
             $view->assignMultiple([
                 'contentElementUid' => 123,
                 'data' => ['uid' => 123],
-                'environment' => ['settings' => ['mapRenderer' => $renderer, 'mapProvider' => 'osm', 'mapHeight' => '300']],
+                'environment' => $useEnvironmentObject
+                    ? new Environment(['mapRenderer' => $renderer, 'mapProvider' => 'osm', 'mapHeight' => '300'], [], [], '/map', 1, 'https://example.test/')
+                    : ['settings' => ['mapRenderer' => $renderer, 'mapProvider' => 'osm', 'mapHeight' => '300']],
                 'configuration' => [],
                 'poiCollections' => [],
                 'infoWindow' => true,
